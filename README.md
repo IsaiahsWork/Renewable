@@ -1,4 +1,4 @@
-# Renewable
+# Quantitative Analysis of Renewable Energy Stocks Using Python
 
 🔍 Quantitative Analysis of Renewable Energy Stocks: A 2025 Market Snapshot
 As part of my ongoing work in financial data analysis, I recently conducted a focused study of select U.S. renewable energy stocks using Python and historical price data. The objective was to explore price trends, visualize movements, and lay the groundwork for future portfolio construction using quantitative methods like moving averages.

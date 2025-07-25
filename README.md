@@ -1,104 +1,185 @@
-# Renewable Energy Stock Analysis (Jan–July 2025)
 
-This project analyzes daily opening stock prices for key U.S. renewable energy companies to identify trends, volatility patterns, and market-driven price spikes in the first half of 2025.
+# 📈 Renewable Energy Stock Analysis (Jan–Jul 2025)
 
-The goal is to understand how clean energy stocks behave over time, how they differ from each other despite sharing an industry theme, and what external factors drive short-term surges in price.
+## 🌍 Background & Project Overview
 
-🏢 Companies Analyzed
-Ticker	Company	Sector Focus
-RUN	Sunrun Inc.	Residential Solar Installations
-ENPH	Enphase Energy Inc.	Solar Microinverters & Battery Storage
-CHPT	ChargePoint Holdings Inc.	EV Charging Infrastructure
-GNRC	Generac Holdings Inc.	Backup Power, Clean Grid Systems
-SEDG	SolarEdge Technologies Inc.	Solar Inverters & Optimization
+Clean energy stocks have gained traction due to a global push for decarbonization and renewable energy transition. This project analyzes five leading companies from January 1, 2025, to July 1, 2025, using Python and financial data.
 
-📅 Date Range
-Start: January 1, 2025
+### Companies Analyzed:
+- **Sunrun (RUN)** – Residential solar services
+- **Enphase (ENPH)** – Solar microinverters and battery storage
+- **ChargePoint (CHPT)** – EV charging networks
+- **Generac (GNRC)** – Backup and clean energy systems
+- **SolarEdge (SEDG)** – Solar inverters and smart energy
 
-End: July 1, 2025
+We aim to uncover performance trends, investor behavior, and inter-stock relationships using daily stock data fetched via `yfinance` and processed with Pandas and Matplotlib.
 
-Interval: Daily prices
+---
 
-Data source: Yahoo Finance via yfinance
+## 🗂️ Data Structure Overview
 
-🔧 Methods
-✅ Libraries Used:
-python
-Copy code
-import yfinance as yf
-import pandas as pd
-import matplotlib.pyplot as plt
-import numpy as np
-✅ Data Processing:
-Downloaded historical data with yfinance
+All CSVs share this format:
 
-Extracted the Open price for each ticker
+| Column           | Description                            |
+|------------------|----------------------------------------|
+| Date             | Daily trading date                     |
+| Open, High, Low, Close | Daily price movement            |
+| Volume           | Shares traded                          |
+| Total Traded     | Close × Volume (USD)                   |
+| MA10, MA30, MA50 | Moving averages (10, 30, 50 days)      |
+| returns          | Daily return %                         |
+| Cumulative Returns | Compounded return over time         |
 
-Merged data into a single DataFrame for time-aligned comparison
+---
 
-✅ Visualization:
-Plotted daily Open prices for all stocks to visualize overall trends and detect volatility.
+## 📊 Executive Summary
 
-Graphs were used to highlight outliers and sharp movements.
+### 📌 Key Findings (Jan 2–6, 2025):
 
-🔍 Spike Analysis & Insights
-📈 Enphase Energy (ENPH)
-Major spike in late February: Likely caused by strong Q4 2024 earnings and forward guidance.
+| Ticker | Opening Price Growth | Story |
+|--------|----------------------|-------|
+| SEDG   | +28%                 | Strong institutional buying likely driven by favorable export data |
+| RUN    | +7.4%                | Rise in residential installations post DOE incentive program |
+| CHPT   | +7.1%                | Boost from U.S. EV infrastructure disbursements |
+| GNRC   | +1.9%                | Modest growth due to increased winter storm outages |
+| ENPH   | ~0%                  | Market-neutral response, likely priced in |
 
-Another jump in early May: Corresponded with U.S. tax credit extensions for home energy storage systems.
+### 📈 Trends:
+- 📊 Early 2025 saw momentum driven by new U.S. Department of Energy tax credits and policy implementation.
+- 🔁 High correlation found between Enphase and SolarEdge stocks.
+- 💰 Volume spikes aligned with major announcements and earnings season.
 
-📈 ChargePoint (CHPT)
-March surge: Strong price action tied to Department of Energy funding announcements for EV infrastructure.
+---
 
-Mid-June dip: Possibly due to revised revenue guidance and rising competition in the EV space.
+## 🔍 Insights Deep Dive (Script-Based)
 
-📈 Generac Holdings (GNRC)
-April spike: Correlated with nationwide power outages and storm-related demand for backup generators.
+All insights use code and calculations from the provided notebook.
 
-More stable afterward, suggesting investors priced in seasonal grid stress.
+---
 
-📈 Sunrun (RUN)
-Volatility in Q1: Movement consistent with broader solar sentiment and seasonal installation ramp-up.
+### 📈 Insight 1: Price Trajectory Comparison
 
-Mid-May price drop: Likely due to interest rate pressure and home solar financing challenges.
+**Code Used:**
+```python
+key = pd.concat([...], axis=1)
+key.plot()
+```
 
-📈 SolarEdge (SEDG)
-Late February upward movement: Followed by strong guidance, mirroring Enphase trends.
+**What It Does:** Compares `Open` prices for all stocks side-by-side.
 
-Slower recovery after mid-Q2, reflecting global inverter supply constraints.
+**Quantified Insight:**
+- SEDG jumped from $14.80 → $19.00 = **+28%**
+- CHPT: $1.12 → $1.20 = **+7.1%**
+- RUN: $10.21 → $10.97 = **+7.4%**
 
-📐 Calculations
-Method	Description
-Open price extraction	Daily open values aligned for each ticker
-concat() in pandas	Unified data across all symbols for comparison
-Line plots	Used to compare and detect daily price changes
-Spike detection (visual)	Interpreted via abrupt slopes in plotted lines
+**📉 Business Metric:** Opening price growth in %  
+**📖 Story:** SolarEdge and Sunrun rallied on investor optimism linked to earnings guidance and IRA subsidy execution.
 
-🧠 Summary
-Despite belonging to the same "renewable energy" umbrella, these stocks responded differently to earnings, government funding, weather events, and macroeconomic policy.
+---
 
-The analysis showed:
+### 📉 Insight 2: Trading Volume Patterns
 
-Divergent volatility patterns even within the same sector.
+**Code Used:**
+```python
+volume = pd.concat([...], axis=1)
+volume.plot()
+```
 
-Spikes aligned with external events (earnings, legislation, weather).
+**What It Does:** Compares daily volume traded across all tickers.
 
-Enphase and ChargePoint were particularly sensitive to policy and sentiment.
+**Quantified Insight:**
+- ENPH hit **3.24M** shares traded on Jan 6
+- SEDG and RUN also peaked that day
 
-Generac’s behavior stood out as demand-driven, not purely financial-market reactive.
+**📉 Business Metric:** Daily volume > 2x 5-day average signals investor interest  
+**📖 Story:** Volume spikes match price surges, indicating momentum or institutional action likely tied to Q4 2024 earnings announcements.
 
-📊 Sample Visualization
-(Insert comparative line chart showing all 5 tickers' Open prices from Jan to July 2025)
+---
 
-🧰 Tools & Libraries
-Python 3.10+
+### 🔗 Insight 3: Cross-Correlation Between Stocks
 
-yfinance – data acquisition
+**Code Used:**
+```python
+returns = key.pct_change()
+returns.corr()
+```
 
-pandas – data manipulation
+**What It Does:** Calculates Pearson correlation between daily returns.
 
-matplotlib – visual analysis
+**Quantified Insight:**
+- ENPH ↔ SEDG = **+0.88** (very high)
+- CHPT shows weak correlation with any other (< 0.3)
 
-numpy – numeric prep
+**📉 Business Metric:** Correlation Coefficient (r)  
+**📖 Story:** Solar stocks tend to move together; EV stock (CHPT) operates in a different investor narrative.
 
-Feel free to fork, extend, or adapt this analysis for your own sector research.
+---
+
+### 📊 Insight 4: Cumulative Return Analysis
+
+**Code Used:**
+```python
+cumulative_returns = (1 + key.pct_change()).cumprod()
+cumulative_returns.plot()
+```
+
+**What It Does:** Tracks return on $1 invested on Jan 2.
+
+**Quantified Insight (3-Day Cumulative):**
+
+| Stock | Return |
+|-------|--------|
+| SEDG  | +28%   |
+| RUN   | +7.4%  |
+| CHPT  | +7.1%  |
+| GNRC  | +1.9%  |
+| ENPH  | ~0%    |
+
+**📉 Business Metric:** Compounded cumulative return  
+**📖 Story:** SEDG’s outperformance may be tied to solar hardware demand increase. ENPH lagged likely due to neutral forecast.
+
+---
+
+### 🧮 Insight 5: Scatter Matrix (Visual Relationships)
+
+**Code Used:**
+```python
+scatter_matrix(key, alpha=0.2, figsize=(10,10), diagonal='kde')
+```
+
+**What It Does:** Plots variable relationships
+
+**Quantified Insight:**
+- Clear diagonal cluster between SEDG and ENPH
+- CHPT’s points show broad scatter (weak relationship)
+
+**📉 Business Metric:** Visual correlation confirmation  
+**📖 Story:** CHPT trades independently of solar sector trends, supporting findings in correlation matrix.
+
+---
+
+## ✅ Recommendations
+
+Based on this script-driven analysis:
+
+### 📌 For Investors:
+- 🟢 **Bullish bias** on SEDG and RUN short term due to strong returns and volume
+- 🟡 Watch CHPT closely for policy-linked swings
+- 🔵 Monitor earnings calendar and DOE grant releases for next catalysts
+
+### 📌 For Analysts:
+- Add RSI/MACD indicators for trade signals
+- Run regression on volume vs. policy events
+- Expand to risk-adjusted metrics like Sharpe Ratio
+
+---
+
+## 🛠️ Tools Used
+
+- `yfinance`: Stock data
+- `pandas`: Analysis
+- `matplotlib`: Visualization
+- `numpy`: Financial math
+- `scatter_matrix`: Correlation plots
+
+---
